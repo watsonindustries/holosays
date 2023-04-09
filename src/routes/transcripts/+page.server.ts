@@ -1,8 +1,8 @@
 import type { PageServerLoad } from './$types';
 import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
 
-import { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } from "$env/static/private";
-const credentials = { accessKeyId: AWS_ACCESS_KEY_ID, secretAccessKey: AWS_SECRET_ACCESS_KEY };
+import { HOLOSAYS_AWS_ACCESS_KEY_ID, HOLOSAYS_AWS_SECRET_ACCESS_KEY } from "$env/static/private";
+const credentials = { accessKeyId: HOLOSAYS_AWS_ACCESS_KEY_ID, secretAccessKey: HOLOSAYS_AWS_SECRET_ACCESS_KEY };
 
 const s3 = new S3Client({
 	endpoint: "https://ams3.digitaloceanspaces.com",
