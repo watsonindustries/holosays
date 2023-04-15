@@ -6,6 +6,10 @@
 	const bucketBaseURL = 'https://holosays.ams3.cdn.digitaloceanspaces.com/';
 
 	const transcripts = data.transcripts || [];
+
+	function youtubeURL(video_id: string): string {
+		return `https://www.youtube.com/watch?v=${video_id}`;
+	}
 </script>
 
 <div>
@@ -23,9 +27,9 @@
 			<tbody>
 				{#each transcripts as { Key, sourceId }}
 					<tr>
-						<th>{sourceId}</th>
+						<th><a href={youtubeURL(sourceId)} class="link link-primary">{sourceId}</a></th>
 						<td>
-							<a href="{bucketBaseURL}{Key}" class="link link-primary">{Key}</a>
+							<a href="{bucketBaseURL}{Key}" class="link link-secondary">{Key}</a>
 						</td>
 					</tr>
 				{/each}
