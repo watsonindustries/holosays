@@ -14,7 +14,7 @@
     <div>
       <h1 class="text-5xl font-bold">What is HoloSays?</h1>
       <p class="py-6"><b>HoloSays</b> provides searchable, timestamped transcripts and subtitles for past live streams.</p>
-      <button class="btn btn-primary rounded-full">Learn More</button>
+      <a class="btn btn-primary rounded-full" href="/about">Learn More</a>
     </div>
   </div>
 </div>
@@ -28,6 +28,7 @@
         <li>Find key moments in a stream</li>
         <li>Quickly catch up on a missed stream</li>
         <li>Easily track important information</li>
+        <li>Generate subtitles for any VOD</li>
         <li>Perform information extraction using natural language processing</li>
       </ul>
       <button class="btn btn-primary rounded-full">Explore</button>
