@@ -5,7 +5,7 @@
 </script>
 
 <div class="py-10 px-10 sm:px-12 md:px-16 lg:px-24 xl:px-32">
-    <article class="prose">
+    <article class="prose mx-auto">
         <h1>What is HoloSays?</h1>
         <p>HoloSays is an ambitious project to generate transcripts, subtitles and metadata for nearly every Hololive or vtuber stream VOD.</p>
         <h2>Why build HoloSays?</h2>
@@ -33,4 +33,3 @@
         <p>Feel free to reach out on <a href="http://discordapp.com/users/511267995214151721" class="link link-primary">Discord</a></p>
     </article>
 </div>
-
