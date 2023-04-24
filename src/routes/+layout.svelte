@@ -30,6 +30,7 @@
 			>
 				<li><a href="/">Homepage</a></li>
 				<li><a href="/transcripts">Transcripts</a></li>
+				<li><a href="/about">About</a></li>
 			</ul>
 		</div>
 	</div>
