@@ -1,5 +1,11 @@
 import type { PageServerLoad } from './$types';
 import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
+import type { Transcript } from '$lib/types';
+
+function ytThumbnailURL(videoID?: string) {
+	if (videoID) return `https://img.youtube.com/vi/${videoID}/mqdefault.jpg`
+	return undefined;
+}
 
 import { HOLOSAYS_AWS_ACCESS_KEY_ID, HOLOSAYS_AWS_SECRET_ACCESS_KEY } from "$env/static/private";
 const credentials = { accessKeyId: HOLOSAYS_AWS_ACCESS_KEY_ID, secretAccessKey: HOLOSAYS_AWS_SECRET_ACCESS_KEY };
@@ -11,6 +17,7 @@ const s3 = new S3Client({
 });
 
 const bucketName = "holosays";
+const bucketBaseURL = `https://${bucketName}.ams3.cdn.digitaloceanspaces.com/`;
 const command = new ListObjectsCommand({ Bucket: bucketName, Prefix: "transcripts" });
 
 export const load = (async () => {
@@ -23,13 +30,14 @@ export const load = (async () => {
 			.map(entry => {
 				const keyParts = (entry.Key ?? '').split('/');
 				const fileNameParts = keyParts.pop()?.split('-');
-				const sourceId = (fileNameParts ?? '').at(0);
+				const sourceID = (fileNameParts ?? '').at(0);
+				const remoteURL = `${bucketBaseURL}${entry.Key}`;
+				const thumbnailURL = ytThumbnailURL(sourceID);
 
-				return {
-					...entry,
-					sourceId
-				};
-			}) as ArrayLike<{ Key: string, sourceId: string }>;
+				return { sourceID, remoteURL, thumbnailURL };
+			}) as ArrayLike<Transcript>;
+
+		// console.log(transcripts);
 
 		return { transcripts };
 	} catch (error) {

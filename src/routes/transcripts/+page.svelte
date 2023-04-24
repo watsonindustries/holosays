@@ -1,39 +1,22 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import TranscriptCard from '$lib/components/TranscriptCard.svelte';
 
 	export let data: PageData;
 
-	const bucketBaseURL = 'https://holosays.ams3.cdn.digitaloceanspaces.com/';
-
 	const transcripts = data.transcripts || [];
-
-	function youtubeURL(video_id: string): string {
-		return `https://www.youtube.com/watch?v=${video_id}`;
-	}
 </script>
 
-<div>
-	<h1 class="text-2xl font-bold mb-5 text-center">Transcripts</h1>
+<div class="bg-base-200">
+	<h1 class="text-4xl font-bold mb-5 text-center pt-4">Transcripts</h1>
 
-	<div class="overflow-x-auto lg:mx-72 mx-6">
-		<table class="table w-full">
-			<!-- head -->
-			<thead>
-				<tr>
-					<th>Source ID</th>
-					<th>Download</th>
-				</tr>
-			</thead>
-			<tbody>
-				{#each transcripts as { Key, sourceId }}
-					<tr>
-						<th><a href={youtubeURL(sourceId)} class="link link-primary">{sourceId}</a></th>
-						<td>
-							<a href="{bucketBaseURL}{Key}" class="link link-secondary">{Key}</a>
-						</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
+	<div class="overflow-x-auto lg:mx-48 mx-6 space-y-6 py-6 px-6">
+		<div
+			class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-4 text-primary"
+		>
+			{#each transcripts as transcript}
+				<TranscriptCard {transcript} />
+			{/each}
+		</div>
 	</div>
 </div>
