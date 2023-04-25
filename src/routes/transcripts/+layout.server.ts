@@ -1,4 +1,3 @@
-import type { PageServerLoad } from './$types';
 import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
 import type { Transcript } from '$lib/types';
 
@@ -8,6 +7,7 @@ function ytThumbnailURL(videoID?: string) {
 }
 
 import { HOLOSAYS_AWS_ACCESS_KEY_ID, HOLOSAYS_AWS_SECRET_ACCESS_KEY } from "$env/static/private";
+import type { LayoutServerLoad } from './$types';
 const credentials = { accessKeyId: HOLOSAYS_AWS_ACCESS_KEY_ID, secretAccessKey: HOLOSAYS_AWS_SECRET_ACCESS_KEY };
 
 const s3 = new S3Client({
@@ -26,7 +26,7 @@ export const load = (async () => {
 		const data = await s3.send(command);
 
 		const transcripts = (data.Contents ?? [])
-			.filter(entry => entry.Key !== 'transcripts/')
+			.filter(entry => entry.Key !== 'transcripts/' && entry.Key?.endsWith('vtt'))
 			.map(entry => {
 				const keyParts = (entry.Key ?? '').split('/');
 				const fileNameParts = keyParts.pop()?.split('-');
@@ -37,11 +37,11 @@ export const load = (async () => {
 				return { sourceID, remoteURL, thumbnailURL };
 			}) as ArrayLike<Transcript>;
 
-		// console.log(transcripts);
+		console.log(transcripts);
 
 		return { transcripts };
 	} catch (error) {
 		console.error(error);
 		throw error;
 	}
-}) as PageServerLoad;
+}) as LayoutServerLoad;

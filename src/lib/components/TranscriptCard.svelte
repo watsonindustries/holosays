@@ -7,7 +7,7 @@
 </script>
 
 <div class="card card-compact bg-base-100 shadow-xl mx-5">
-	<figure><img src={transcript.thumbnailURL || placeholderCardImg} alt="Shoes" /></figure>
+	<figure><img src={transcript.thumbnailURL || placeholderCardImg} alt={transcript.sourceID} class="w-full" /></figure>
 	<div class="card-body">
 		<h2 class="card-title">{transcript.sourceID}</h2>
 		<div class="card-actions justify-end">
