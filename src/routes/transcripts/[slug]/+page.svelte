@@ -1,6 +1,7 @@
 <script lang="ts">
 	import TranscriptCard from '$lib/components/TranscriptCard.svelte';
 	import type { Transcript } from '$lib/types';
+	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -28,10 +29,10 @@
 	let cues: any;
 
 	video.appendChild(track);
-	let textTrack = track.track;
+	cues = track.track.cues;
 
 	function setCues() {
-		cues = textTrack.cues;
+		cues = track.track.cues;
 	}
 
 	function formatTs(seconds: number): string {
@@ -73,7 +74,7 @@
 		</a>
 	</div>
 	<div class="px-6 lg:w-2/3">
-		<div class="space-x-3">
+		<div class="sm:space-x-3 lg:space-y-0 space-y-4">
 			<button on:click={setCues} class="btn btn-primary rounded-full hover:scale-105"
 				>Load Transcript</button
 			>
@@ -83,7 +84,7 @@
 		</div>
 
 		<div class="py-6">
-			{#if textTrack && cues}
+			{#if cues}
 				{#each cues as { startTime, text }}
 					<p>
 						<a href="{youtubeURL}&t={Math.ceil(startTime)}" class="link link-primary font-mono"
