@@ -29,7 +29,7 @@ export const load = (async () => {
 			.filter(entry => entry.Key !== 'transcripts/' && entry.Key?.endsWith('vtt'))
 			.map(entry => {
 				const keyParts = (entry.Key ?? '').split('/');
-				const fileNameParts = keyParts.pop()?.split('-');
+				const fileNameParts = keyParts.pop()?.split('--');
 				const sourceID = (fileNameParts ?? '').at(0);
 				const remoteURL = `${bucketBaseURL}${entry.Key}`;
 				const thumbnailURL = ytThumbnailURL(sourceID);
